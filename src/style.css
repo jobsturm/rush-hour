@@ -1,8 +1,82 @@
-html, body {
-	font: 14px/1.21 'Helvetica Neue', arial, sans-serif;
-	font-weight: 400;
+:root {
+	--cell-size: 4.2vw;
+	--min-cell-size: 50px;
+	/* Columns and rows are set in App constructor */
+	--columns: 0;
+	--rows: 0;
+}  
+
+* {
+	box-sizing: border-box;
 }
 
-h1 {
-	text-align: center;
+html, body {
+	overflow: hidden;
+	margin: 0px;
+}
+.hitbox-overlay {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background: gainsboro;
+}
+main {
+	position: relative;
+	background: white;
+	box-shadow: 0 0 31px 0px rgba(0,0,0,0.1);
+	display: flex;
+	flex-direction: column;
+}
+
+.dragging-grid {
+	margin: 10px;
+	position: absolute;
+	opacity: 0;
+	cursor: grab;
+}
+.game-board {
+	margin: 10px;
+	position: relative;
+}
+.is-dragging {
+	z-index: 4;
+}
+.row {
+	width: calc(var(--cell-size) * var(--columns));
+	min-width: calc(var(--min-cell-size) * var(--columns));
+	height: var(--cell-size);
+	min-height: var(--min-cell-size);
+	display: flex;
+}
+.cell {
+	position: relative;
+	width: var(--cell-size);
+	min-width: var(--min-cell-size);
+	height: var(--cell-size);
+	min-height: var(--min-cell-size);
+}
+.cell::after {
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	margin: 10px;
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
+	background: gainsboro;
+}
+
+.blocks {
+	top: 10px;
+	left: 10px;
+	position: absolute;
+}
+.block {
+	position: absolute;
+	cursor: move;
+	z-index: 1;
+	transition: all 50ms;
 }
